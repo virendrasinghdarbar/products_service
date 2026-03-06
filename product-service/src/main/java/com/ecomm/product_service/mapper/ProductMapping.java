@@ -7,7 +7,7 @@ public class ProductMapping {
     
     public static ProductResponseDto toProductResponseDto(Product poduct) {
         ProductResponseDto responseDto = new ProductResponseDto();
-      //  responseDto.setProductId(String.valueOf(poduct.getProductId()));
+        responseDto.setProductId(String.valueOf(poduct.getProductId()));
         responseDto.setName(poduct.getName());
         responseDto.setDescription(poduct.getDescription());
         responseDto.setPrice(poduct.getPrice());

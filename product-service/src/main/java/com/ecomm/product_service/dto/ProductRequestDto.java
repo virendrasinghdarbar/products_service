@@ -13,7 +13,7 @@ public class ProductRequestDto {
     private String description;
     private double price;
     private Integer stockQuantity;
-    private boolean inStock;
+   // private boolean inStock;
     private String categoryId;
 
     // Getters and Setters
