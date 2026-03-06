@@ -1,12 +1,16 @@
 package com.ecomm.product_service.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import com.ecomm.product_service.dto.CategoryRequestDto;
 import com.ecomm.product_service.dto.CategoryResponseDto;
+import com.ecomm.product_service.dto.ExtendedCategoryResponseDto;
 import com.ecomm.product_service.entity.Category;
+import com.ecomm.product_service.entity.Product;
 import com.ecomm.product_service.mapper.CategoryMapping;
+import com.ecomm.product_service.mapper.ProductMapping;
 import com.ecomm.product_service.repository.CategoryRepository;
 import com.ecomm.product_service.repository.ProductRepository;
 import com.ecomm.product_service.service.CategoryService;
@@ -39,13 +43,17 @@ public class CategoryServiceImpl implements CategoryService {
         }
         categoryRepository.delete(category);   
    }
-   
+
    @Override
-   public List<CategoryResponseDto> getAllCategories() {
+   public List<ExtendedCategoryResponseDto> getAllCategories() {
          List<Category> categories = categoryRepository.findAll();
-         return categories.stream()
-                .map(CategoryMapping::toCategoryResponseDto)
-                .toList();
+        List<ExtendedCategoryResponseDto> extendedCategoryResponseDtos = new ArrayList<>();
+        for (Category category : categories) {
+            ExtendedCategoryResponseDto extendedCategoryResponseDto = convertToExtendedDto(category);
+            extendedCategoryResponseDtos.add(extendedCategoryResponseDto);
+        }
+         return extendedCategoryResponseDtos;     
+        
    }
    @Override
    public CategoryResponseDto getCategoryById(String categoryId) {
@@ -55,7 +63,18 @@ public class CategoryServiceImpl implements CategoryService {
    }
    @Override
    public CategoryResponseDto updateCategory(String categoryName, CategoryResponseDto categoryResponseDto) {
-       // TODO Auto-generated method stub
+     
        return null;
    }
+
+private ExtendedCategoryResponseDto convertToExtendedDto(Category category) {
+   List<Product> products = category.getProducts();
+   return new ExtendedCategoryResponseDto(
+           category.getCategoryId(),
+           category.getCategoryName(),
+           category.getDescription(),
+          products.stream().map(ProductMapping::toProductResponseDto).toList()
+   );
+    
+}
 }

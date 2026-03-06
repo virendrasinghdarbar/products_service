@@ -1,5 +1,7 @@
 package com.ecomm.product_service.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.product_service.dto.CategoryRequestDto;
 import com.ecomm.product_service.dto.CategoryResponseDto;
+import com.ecomm.product_service.dto.ExtendedCategoryResponseDto;
 import com.ecomm.product_service.service.CategoryService;
 
 @RestController
@@ -33,9 +36,10 @@ public class CategoryController {
         return categoryService.getCategoryById(categoryId);
      }
 
-     @GetMapping(value = "/all")
-     public java.util.List<CategoryResponseDto> getAllCategories() {
-         return categoryService.getAllCategories();
+     @GetMapping("/all")
+     public List<ExtendedCategoryResponseDto> getAllCategories() {
+        List<ExtendedCategoryResponseDto> extendedCategoryResponseDtos = categoryService.getAllCategories();
+         return extendedCategoryResponseDtos;
      }
     
      @DeleteMapping(value = "/{categoryId}")

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecomm.product_service.dto.CategoryRequestDto;
 import com.ecomm.product_service.dto.CategoryResponseDto;
+import com.ecomm.product_service.dto.ExtendedCategoryResponseDto;
 
 @Service  
 public interface CategoryService {
@@ -13,6 +14,6 @@ public interface CategoryService {
     CategoryResponseDto getCategoryById(String categoryId);
     CategoryResponseDto updateCategory(String categoryName, CategoryResponseDto categoryResponseDto);
     void deleteCategory(String catagotyId);
-    List<CategoryResponseDto> getAllCategories();
+    List<ExtendedCategoryResponseDto> getAllCategories();
 
 }

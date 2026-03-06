@@ -63,13 +63,14 @@ public class ProductServiceImpl implements ProductService {
         }
 
         @Override
-        public void deleteProduct(String productId) {
+        public String deleteProduct(String productId) {
             Product product = productRepository.findById(String.valueOf(productId))
                             .orElseThrow(()-> new RuntimeException("Product not found"));  
                 if(!productRepository.findById(String.valueOf(productId)).isEmpty()) {
                     throw new RuntimeException("Cannot delete product with associated orders");
                 }
               productRepository.delete(product);
+              return "Product "+productId+" deleted successfully";
         }
 
         private ProductResponseDto convertToDto(Product product) {
